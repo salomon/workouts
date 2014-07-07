@@ -22,48 +22,48 @@ get '/workout' do
 				  'hang power snatch', 'wall ball', 'kettlebell swing']
 	agility = ['ladder', 'stairs', 'jump rope']
 	other = ['rotating lunges with ball']
-
-	def pair(big_array,small_array)
-		case small_array
-		when big_array[0]
-			exercise = big_array[1].sample
-		when big_array[1]
-			exercise = big_array[0].sample
-		when big_array[2]
-			exercise = big_array[3].sample
-		when big_array[3]
-			exercise = big_array[2].sample
-		end
-		exercise
-	end
+	boxing = ['boxing']
+	swimming = ['swimming']
+	run = ['distance run']
+	track = ['track workout']
+	basketball = ['basketball workout']
 
 
-
-
-	workouts = [quads, hamstrings, chest, back, abs, calves, stability, cardio, shoulders, arms, whole_body, agility, other]
+	workouts = [quads, hamstrings, chest, back, abs, calves, stability, cardio, shoulders, arms, whole_body, agility, other, boxing, swimming, run, track, basketball]
 	todays_workout = Array.new
-	exercise = abs.sample
-	todays_workout << exercise
-	abs.delete(exercise)
+	sport_check = workouts.sample
+	if sport_check == boxing || sport_check == swimming || sport_check == run || sport_check == track || sport_check == basketball
+		todays_workout << sport_check[0]
+		workouts.unshift(4)
+	else
+		exercise = abs.sample
+		todays_workout << exercise
+		abs.delete(exercise)
 
-	while todays_workout.length < 6
-		if todays_workout.length == 5
-			current_workout = [abs, calves, stability, cardio].sample
-			exercise = current_workout.sample
-			todays_workout << exercise
-			current_workout.delete(exercise)
-		else
-			current_workout = workouts.sample
-			exercise = current_workout.sample
-			todays_workout << exercise
-			current_workout.delete(exercise)
-			if current_workout == quads || current_workout == hamstrings || current_workout == chest || current_workout == back
-				exercise = pair(workouts, current_workout)
+		while todays_workout.length < 6
+			if todays_workout.length == 5
+				current_workout = [abs, calves, stability, cardio].sample
+				exercise = current_workout.sample
 				todays_workout << exercise
 				current_workout.delete(exercise)
-			end
-		end 
+			else
+				current_workout = workouts.sample
+				exercise = current_workout.sample
+				todays_workout << exercise
+				current_workout.delete(exercise)
+				if current_workout == quads || current_workout == hamstrings || current_workout == chest || current_workout == back
+					exercise = pair(workouts, current_workout)
+					todays_workout << exercise
+					current_workout.delete(exercise)
+				end
+			end 
+		end
+
+
 	end
+
+
+
 
 	@todays_workout = todays_workout
 	erb :workout
