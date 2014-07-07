@@ -54,8 +54,8 @@ get '/workout' do
 		todays_workout << exercise
 		abs.delete(exercise)
 
-		while todays_workout.length < 6
-			if todays_workout.length == 5
+		while todays_workout.length < 8
+			if todays_workout.length == 7
 				current_workout = [abs, calves, stability, cardio].sample
 				exercise = current_workout.sample
 				todays_workout << exercise
