@@ -28,6 +28,20 @@ get '/workout' do
 	track = ['track workout']
 	basketball = ['basketball workout']
 
+	def pair(big_array,small_array)
+		case small_array
+		when big_array[0]
+			exercise = big_array[1].sample
+		when big_array[1]
+			exercise = big_array[0].sample
+		when big_array[2]
+			exercise = big_array[3].sample
+		when big_array[3]
+			exercise = big_array[2].sample
+		end
+		exercise
+	end
+
 
 	workouts = [quads, hamstrings, chest, back, abs, calves, stability, cardio, shoulders, arms, whole_body, agility, other, boxing, swimming, run, track, basketball]
 	todays_workout = Array.new
