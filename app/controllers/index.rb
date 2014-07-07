@@ -48,8 +48,8 @@ get '/workout' do
 	sport_check = workouts.sample
 	if sport_check == boxing || sport_check == swimming || sport_check == run || sport_check == track || sport_check == basketball
 		todays_workout << sport_check[0]
-		workouts.unshift(4)
 	else
+		workouts.pop(5)
 		exercise = abs.sample
 		todays_workout << exercise
 		abs.delete(exercise)
