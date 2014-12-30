@@ -2,6 +2,10 @@ get '/' do
   erb :index
 end
 
+get '/videos' do
+  erb :videos
+end
+
 get '/workout' do
 
 	quads = ['squats', 'box jumps', 'step ups', 'bosu squats', 'burpee box jumps',
@@ -85,3 +89,5 @@ get '/workout' do
 #lets check which body part it's from
 
 end
+
+

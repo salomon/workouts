@@ -1,0 +1,101 @@
+<div class='container'>
+
+	   <h1>KISSmetrics Multiple Video Embedding Example</h1>
+ 
+    <h2>Player 1</h2>
+    <div class="player" data-video-id="M7lc1UVf-VE"></div>
+ 
+    <h2>Player 2</h2>
+    <div class="player" data-video-id="Yv0WBUmbotI"></div>
+ 
+    <h2>Player 3</h2>
+    <div class="player" data-video-id="Au77KxcIokQ"></div>
+ 
+    <script>
+      // Load the KISSmetrics JavaScript library.
+      var _kmq = _kmq || [];
+      var _kmk = _kmk || 'YOUR_TRACKING_KEY';
+      function _kms(u) {
+        setTimeout(function() {
+          var d = document, f = d.getElementsByTagName('script')[0],
+          s = d.createElement('script');
+          s.type = 'text/javascript'; s.async = true; s.src = u;
+          f.parentNode.insertBefore(s, f);
+        }, 1);
+      }
+      _kms('//i.kissmetrics.com/i.js');
+      _kms('//doug1izaerwt3.cloudfront.net/' + _kmk + '.1.js');
+ 
+      // Load the YouTube IFrame API.
+      var tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+ 
+      // Initialize the players once the YouTube API loads.  Keep a collection
+      // of each player using the video ID as its key.
+      var playersByVideoId = {};
+      function onYouTubeIframeAPIReady() {
+        // Match the player placeholders declared above.
+        var playerContainers = document.querySelectorAll('div.player')
+ 
+        // Iterate over and initialize each player.
+        for (var i = 0; i < playerContainers.length; i++) {
+          var playerContainer = playerContainers[i];
+          var videoId = playerContainer.getAttribute('data-video-id');
+ 
+          // Initialize the player for the current video.
+          var player = new YT.Player(playerContainer, {
+            width: '640',
+            height: '390',
+            videoId: videoId,
+            events: {
+              // Provide callbacks for the ready and state change events, using
+              // closures over the current player's video ID.  Give each
+              // closure its own copy of videoId to avoid capturing the local
+              // variable which is reassigned when looping.
+              'onReady': (function(videoId) {
+                return function(event) { onPlayerReady(videoId, event); };
+              })(videoId),
+              'onStateChange': (function(videoId) {
+                return function(event) { onPlayerStateChange(videoId, event); };
+              })(videoId)
+            }
+          });
+ 
+          // Keep the initialized player objects on hand for any future needs.
+          playersByVideoId[videoId] = player;
+        }
+      }
+ 
+      // Perform any custom initialization behavior when each video is
+      // initialized.  Keep a simple counter if you'd like to know when all
+      // videos are finished initializing.
+      function onPlayerReady(videoId, event) {
+        console.log('Videos player is initialized: ' + videoId);
+      }
+ 
+      // Handle a state change with one of the players, and record the activity
+      // with the KISSmetrics tracker.
+      function onPlayerStateChange(videoId, event) {
+        // Resolve the player for the specified video.
+        var player = playersByVideoId[videoId];
+        if (player) {
+          // If we did found a matching player, record the activity with
+          // KISSmetrics.
+          switch (event.data) {
+            case YT.PlayerState.PLAYING:
+              _kmq.push(['record', 'Played Video', {'video title':player.getVideoData().title}]);
+              break;
+            case YT.PlayerState.PAUSED:
+              _kmq.push(['record', 'Paused Video', {'video title':player.getVideoData().title}]);
+              break;
+            case YT.PlayerState.ENDED:
+              _kmq.push(['record', 'Finished Video', {'video title':player.getVideoData().title}]);
+              break;
+          }
+        }
+      }
+    </script>
+
+</div>

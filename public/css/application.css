@@ -1,9 +1,25 @@
 .container {
   margin: 20px auto;
   width: 600px;
-  padding: 0px 20px 20px 20px;
-  border: 1px dotted black;
+  color: white;
 }
 th {
   text-align: left;
 }
+
+
+body {
+background: url("/img/fitness.jpg");
+}
+
+h1 {
+	color: black;
+	font-size: 80px;
+}
+
+h2 {
+	color: black;
+	margin-top: 80px;
+}
+
+// put a div on the entire thing and a div for each.  
