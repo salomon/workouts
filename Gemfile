@@ -6,6 +6,7 @@ gem 'pg'
 # Sinatra driver
 gem 'sinatra'
 gem 'sinatra-contrib'
+gem 'kmts', '~> 2.0.0'
 
 # Use Thin for our web server
 gem 'thin'

@@ -31,3 +31,7 @@ Dir[APP_ROOT.join('app', 'helpers', '*.rb')].each { |file| require file }
 
 # Set up the database and models
 require APP_ROOT.join('config', 'database')
+
+# KM Ruby Integration
+require 'kmts'
+KMTS.init('e2c29915d9ff199efc7140c9c0d106d0419dd125')

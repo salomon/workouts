@@ -1,4 +1,5 @@
 get '/' do
+  KMTS.record('bob@bob.com', 'Viewed Homepage')
   erb :index
 end
 

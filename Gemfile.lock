@@ -26,6 +26,7 @@ GEM
     faker (1.3.0)
       i18n (~> 0.5)
     i18n (0.6.9)
+    kmts (2.0.1)
     minitest (4.7.5)
     multi_json (1.9.2)
     pg (0.17.1)
@@ -72,6 +73,7 @@ DEPENDENCIES
   activerecord
   activesupport
   faker
+  kmts (~> 2.0.0)
   pg
   rake
   rspec
